@@ -1,0 +1,76 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id = "messager" class = "com.aaron.app.Messager">
+        <property name = "message" value = "Hello World!"/>
+    </bean>
+
+    <!--Constructor injection-->
+    <bean id = "messageWithIndex" class = "com.aaron.app.Messager">
+        <constructor-arg index="0" value="This is multiple args for constructor"/>
+        <constructor-arg index="1" value="111"/>
+    </bean>
+
+    <!--Injecting objects-->
+    <bean id = "trangleShape" class = "com.aaron.app.Triangle">
+        <property name="pointA" ref="triPointA"/>
+        <property name="pointB" ref="triPointB"/>
+        <property name="pointC" ref="triPointC"/>
+    </bean>
+
+    <bean id = "triPointA" class = "com.aaron.app.Point">
+        <property name = "x" value = "1"/>
+        <property name = "y" value = "1"/>
+    </bean>
+    <bean id = "triPointB" class = "com.aaron.app.Point">
+        <property name = "x" value = "0"/>
+        <property name = "y" value = "0"/>
+    </bean>
+    <bean id = "triPointC" class = "com.aaron.app.Point">
+        <property name = "x" value = "20"/>
+        <property name = "y" value = "-20"/>
+    </bean>
+
+    <!--Inner Bean-->
+    <bean id = "innerBean" class = "com.aaron.app.Triangle">
+        <property name="pointA">
+            <bean class="com.aaron.app.Point">
+                <property name = "x" value = "2"/>
+                <property name = "y" value = "2"/>
+            </bean>
+        </property>
+        <property name="pointB">
+            <bean class="com.aaron.app.Point">
+                <property name = "x" value = "0"/>
+                <property name = "y" value = "0"/>
+            </bean>
+        </property>
+        <property name="pointC">
+            <bean class="com.aaron.app.Point">
+                <property name = "x" value = "10"/>
+                <property name = "y" value = "-10"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!--Aliases Bean-->
+    <alias name="trangleShape" alias="trangleShape-alias"/>
+
+    <!--Collections-->
+    <bean id = "collectionBean" class="com.aaron.app.Triangle">
+        <property name="listPoints" >
+            <list>
+                <ref bean = "triPointA"/>
+                <ref bean = "triPointB"/>
+                <ref bean = "triPointC"/>
+            </list>
+        </property>
+        
+    </bean>
+
+
+</beans>
